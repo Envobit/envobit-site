@@ -15,19 +15,24 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  const navLinks: { href: string; label: string; isRoute?: boolean }[] = [
     { href: "#services", label: "Services" },
     { href: "#methodology", label: "Methodology" },
     { href: "#team", label: "Team" },
     { href: "#results", label: "Results" },
+    { href: "/contact", label: "Contact", isRoute: true },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
+  const handleNavClick = (href: string, isRoute?: boolean) => {
+    if (isRoute) {
+      window.location.href = href;
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -52,7 +57,7 @@ export default function Navigation() {
             {navLinks.map((link) => (
               <button
                 key={link.href}
-                onClick={() => scrollToSection(link.href)}
+                onClick={() => handleNavClick(link.href, link.isRoute)}
                 className="text-navy hover:text-light-blue transition-colors duration-200"
                 data-testid={`nav-link-${link.label.toLowerCase()}`}
               >
@@ -65,6 +70,7 @@ export default function Navigation() {
           <div className="hidden md:block">
             <Button 
               className="bg-light-blue hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-medium"
+              onClick={() => window.location.href = '/contact'}
               data-testid="button-book-strategy-call"
             >
               Book Strategy Call
@@ -91,7 +97,7 @@ export default function Navigation() {
               {navLinks.map((link) => (
                 <button
                   key={link.href}
-                  onClick={() => scrollToSection(link.href)}
+                  onClick={() => handleNavClick(link.href, link.isRoute)}
                   className="text-left text-navy hover:text-light-blue transition-colors duration-200 px-2"
                   data-testid={`mobile-nav-link-${link.label.toLowerCase()}`}
                 >
@@ -100,6 +106,7 @@ export default function Navigation() {
               ))}
               <Button 
                 className="bg-light-blue hover:bg-blue-600 text-white w-full mt-4"
+                onClick={() => window.location.href = '/contact'}
                 data-testid="button-mobile-book-strategy-call"
               >
                 Book Strategy Call

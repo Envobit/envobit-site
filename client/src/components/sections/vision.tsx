@@ -72,6 +72,7 @@ export default function Vision() {
             <Button 
               size="lg"
               className="bg-navy hover:bg-gray-800 text-white px-8 py-4 text-lg font-semibold transition-all duration-200 hover:shadow-xl hover:scale-105"
+              onClick={() => window.location.href = '/contact'}
               data-testid="button-join-movement"
             >
               Join the Movement

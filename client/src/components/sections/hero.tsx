@@ -115,6 +115,7 @@ export default function Hero() {
             <Button 
               size="lg"
               className="bg-light-blue hover:bg-blue-600 text-white px-8 py-4 text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-xl"
+              onClick={() => window.location.href = '/contact'}
               data-testid="button-claim-strategy-session"
             >
               <Calendar className="w-5 h-5 mr-2" />
