@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 25%, 7.8%);
+  --card: hsl(180, 6.7%, 97.1%);
+  --card-foreground: hsl(210, 25%, 7.8%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 25%, 7.8%);
+  --primary: hsl(203.9, 88.3%, 53.1%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(210, 25%, 7.8%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(240, 2%, 90%);
+  --muted-foreground: hsl(210, 25%, 7.8%);
+  --accent: hsl(211.6, 51.4%, 92.7%);
+  --accent-foreground: hsl(203.9, 88.3%, 53.1%);
+  --destructive: hsl(356.3, 90.6%, 54.3%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(201.4, 30.4%, 91%);
+  --input: hsl(200, 23.1%, 97.5%);
+  --ring: hsl(202.8, 89.1%, 53.1%);
+  
+  /* Envobit Brand Colors */
+  --navy: hsl(210, 46%, 12%);
+  --light-blue: hsl(214, 95%, 69%);
+  --supporting-gray: hsl(210, 20%, 96%);
+  
+  /* Typography */
+  --font-inter: 'Inter', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+  
+  /* Spacing and Effects */
+  --radius: 0.5rem;
+  --shadow-soft: 0 2px 8px hsla(210, 46%, 12%, 0.1);
+  --shadow-medium: 0 4px 16px hsla(210, 46%, 12%, 0.15);
+  --shadow-large: 0 8px 32px hsla(210, 46%, 12%, 0.2);
+}
+
+.dark {
+  --background: hsl(210, 46%, 12%);
+  --foreground: hsl(210, 20%, 96%);
+  --card: hsl(210, 40%, 15%);
+  --card-foreground: hsl(210, 20%, 96%);
+  --popover: hsl(210, 46%, 12%);
+  --popover-foreground: hsl(210, 20%, 96%);
+  --primary: hsl(214, 95%, 69%);
+  --primary-foreground: hsl(210, 46%, 12%);
+  --secondary: hsl(210, 20%, 96%);
+  --secondary-foreground: hsl(210, 46%, 12%);
+  --muted: hsl(210, 40%, 20%);
+  --muted-foreground: hsl(210, 20%, 70%);
+  --accent: hsl(210, 40%, 20%);
+  --accent-foreground: hsl(214, 95%, 69%);
+  --border: hsl(210, 40%, 20%);
+  --input: hsl(210, 40%, 18%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Custom animations */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .fade-in-up.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(214, 95%, 69%) 0%, hsl(210, 46%, 12%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-large);
+  }
+  
+  .glass-morphism {
+    backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(209, 213, 219, 0.3);
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@layer utilities {
+  .tracking-premium {
+    letter-spacing: 0.02em;
+  }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Smooth scrolling improvements */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--supporting-gray));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--light-blue));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--navy));
+}
