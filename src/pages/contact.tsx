@@ -25,13 +25,13 @@ import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import { FloatingLabelTextarea } from "@/components/ui/floating-label-textarea";
 import { FloatingLabelPhoneInput } from "@/components/ui/floating-label-phone-input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { useToast } from "@/hooks/use-toast";
+import { CheckCircle } from "lucide-react";
 import Navigation from "@/components/ui/navigation";
 import Footer from "@/components/ui/footer";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { CheckCircle, Clock } from "lucide-react";
 import { BUDGET_OPTIONS, SERVICES } from "@/config/contact";
+import { useLocation } from "wouter";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -53,6 +53,7 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -114,7 +115,7 @@ export default function Contact() {
                 We've received your message and will be in touch soon.
               </p>
               <Button
-                onClick={() => (window.location.href = "/")}
+                onClick={() => setLocation("/")}
                 className="bg-gray-900 hover:bg-gray-700 text-white px-8 py-3"
                 data-testid="button-back-home"
               >
@@ -138,26 +139,13 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12 bg-gradient-to-br rounded-lg p-4"
+            className="text-left mb-12"
           >
-            <Badge
-              variant="outline"
-              className="inline-flex items-center px-4 py-2 bg-green-50 border-green-500 text-green-500 text-sm font-medium mb-6"
-              data-testid="badge-response-time"
-            >
-              <Clock className="w-4 h-4 mr-2" />
-              24-hour response guarantee
-            </Badge>
-
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight font-montserrat">
-              Ready to start?{" "}
-              <span className="text-light-blue">Let's chat!</span>
+            <h1 className="text-5xl lg:text-6xl font-medium text-gray-900 mb-6 font-montserrat tracking-tight">
+              <span className="text-gray-300">Ready to</span>
+              <br />
+              start your project?
             </h1>
-
-            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              We're here to turn your vision into reality. Share your project
-              details and let's build something extraordinary together.
-            </p>
           </motion.div>
 
           <motion.div
@@ -256,7 +244,7 @@ export default function Contact() {
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger className="pl-4 data-[placeholder]:text-gray-500">
+                          <SelectTrigger className="data-[placeholder]:text-gray-500">
                             <SelectValue placeholder="Select a Budget *" />
                           </SelectTrigger>
                         </FormControl>
@@ -292,7 +280,7 @@ export default function Contact() {
                           {SERVICES.map((service) => (
                             <motion.div
                               key={service.value}
-                              whileTap={{ scale: 0.8 }}
+                              whileTap={{ scale: 0.95 }}
                             >
                               <ToggleGroupItem
                                 value={service.value}

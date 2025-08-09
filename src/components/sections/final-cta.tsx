@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { UserCheck, Gift, Hourglass, ArrowRight } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function FinalCTA() {
+  const [, setLocation] = useLocation();
+
   const buttonVariants = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: {
@@ -11,9 +14,9 @@ export default function FinalCTA() {
       scale: 1,
       transition: {
         duration: 0.4,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   return (
@@ -26,7 +29,7 @@ export default function FinalCTA() {
           viewport={{ once: true }}
           data-testid="final-cta-content"
         >
-          <motion.h2 
+          <motion.h2
             className="text-4xl lg:text-5xl font-bold mb-8 font-montserrat"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -34,11 +37,12 @@ export default function FinalCTA() {
             viewport={{ once: true }}
             data-testid="text-final-cta-headline"
           >
-            Ready to join the companies<br />
+            Ready to join the companies
+            <br />
             that chose <span className="text-light-blue">both</span>?
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className="text-xl text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -46,21 +50,21 @@ export default function FinalCTA() {
             viewport={{ once: true }}
             data-testid="text-final-cta-description"
           >
-            We're selective about our partnerships. We only work with 
-            companies that share our vision for integrated excellence. 
-            The question isn't whether we can transform your product. 
-            The question is whether you're ready for transformation.
+            We're selective about our partnerships. We only work with companies
+            that share our vision for integrated excellence. The question isn't
+            whether we can transform your product. The question is whether
+            you're ready for transformation.
           </motion.p>
-          
+
           {/* Scarcity Signal */}
-          <motion.div 
+          <motion.div
             className="mb-12"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <Badge 
+            <Badge
               variant="outline"
               className="bg-red-500/20 border-red-400/30 rounded-xl p-6 inline-block"
               data-testid="badge-final-scarcity"
@@ -73,40 +77,40 @@ export default function FinalCTA() {
               </div>
             </Badge>
           </motion.div>
-          
+
           {/* Primary CTAs */}
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
             variants={{
               hidden: {},
               visible: {
                 transition: {
-                  staggerChildren: 0.1
-                }
-              }
+                  staggerChildren: 0.1,
+                },
+              },
             }}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
             <motion.div variants={buttonVariants}>
-              <Button 
+              <Button
                 size="lg"
                 className="bg-light-blue hover:bg-blue-600 text-white px-8 py-4 text-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-xl"
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => setLocation("/contact")}
                 data-testid="button-apply-partnership"
               >
                 <UserCheck className="w-5 h-5 mr-2" />
                 Apply for Partnership
               </Button>
             </motion.div>
-            
+
             <motion.div variants={buttonVariants}>
-              <Button 
+              <Button
                 variant="outline"
                 size="lg"
                 className="border-2 border-light-blue text-light-blue hover:bg-light-blue hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-200"
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => setLocation("/contact")}
                 data-testid="button-free-audit"
               >
                 <Gift className="w-5 h-5 mr-2" />
@@ -114,9 +118,9 @@ export default function FinalCTA() {
               </Button>
             </motion.div>
           </motion.div>
-          
+
           {/* Secondary CTA */}
-          <motion.div 
+          <motion.div
             className="mt-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -126,7 +130,7 @@ export default function FinalCTA() {
             <Button
               variant="link"
               className="text-gray-400 hover:text-light-blue transition-colors text-lg"
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => setLocation("/contact")}
               data-testid="button-see-if-qualify"
             >
               See If You Qualify
