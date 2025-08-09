@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "wouter";
 import Navigation from "@/components/ui/navigation";
 import Hero from "@/components/sections/hero";
@@ -14,7 +14,7 @@ import Footer from "@/components/ui/footer";
 export default function Home() {
   const [location] = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Handle scrolling to sections when navigating from another page
     const hash = window.location.hash;
     if (hash) {

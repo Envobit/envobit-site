@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { Switch, Route, useLocation } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,7 +8,7 @@ import Contact from "@/pages/contact";
 
 const ScrollToTop = () => {
   const [location] = useLocation();
-  useEffect(() => {
+  useLayoutEffect(() => {
     // scroll the window to the top on every route change
     window.scrollTo(0, 0);
   }, [location]);
