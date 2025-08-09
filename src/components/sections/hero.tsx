@@ -40,8 +40,7 @@ export default function Hero() {
       <div className="absolute inset-0 opacity-20">
         <div
           style={{
-            backgroundImage:
-              'url("https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080")',
+            backgroundImage: "url('/images/hero-background.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -71,21 +70,21 @@ export default function Hero() {
           <motion.h1
             variants={textVariants}
             custom={1}
-            className="text-5xl lg:text-7xl font-bold mb-6 leading-tight font-montserrat"
+            className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight font-montserrat"
             data-testid="text-hero-headline"
           >
             Software that works
-            <br />
-            <span className="text-light-blue">brilliantly</span> and scales
-            <br />
-            <span className="text-light-blue">beautifully</span>
+            <br className="hidden sm:block" />
+            <span className="text-light-blue"> brilliantly</span> and scales
+            <br className="hidden sm:block" />
+            <span className="text-light-blue"> beautifully</span>
           </motion.h1>
 
           {/* Subheadline */}
           <motion.p
             variants={textVariants}
             custom={2}
-            className="text-xl lg:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg lg:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto leading-relaxed"
             data-testid="text-hero-subheadline"
           >
             The complete product team that Fortune 500s build internally - now
@@ -118,15 +117,6 @@ export default function Hero() {
             >
               <Calendar className="w-5 h-5 mr-2" />
               Claim Your Strategy Session
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-light-blue text-light-blue hover:bg-light-blue hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-200"
-              data-testid="button-see-methodology"
-            >
-              <Play className="w-5 h-5 mr-2" />
-              See Our Methodology
             </Button>
           </motion.div>
         </motion.div>

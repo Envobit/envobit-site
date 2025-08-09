@@ -104,13 +104,13 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-supporting-gray bg-white py-4">
-            <div className="flex flex-col space-y-4">
+          <div className="absolute left-0 right-0 top-16 md:hidden border-t border-gray-200 bg-white py-4 shadow-lg opacity-95">
+            <div className="flex flex-col space-y-4 px-6">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href, link.isRoute)}
-                  className="text-left text-navy hover:text-light-blue transition-colors duration-200 px-2"
+                  className="text-left text-navy hover:text-light-blue transition-colors duration-200 py-2"
                   data-testid={`mobile-nav-link-${link.label.toLowerCase()}`}
                 >
                   {link.label}

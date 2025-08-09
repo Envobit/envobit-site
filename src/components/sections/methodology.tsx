@@ -90,7 +90,7 @@ export default function Methodology() {
           viewport={{ once: true }}
           data-testid="methodology-phases"
         >
-          {phases.map((phase, index) => {
+          {phases.map((phase) => {
             const IconComponent = phase.icon;
             return (
               <motion.div
@@ -132,12 +132,12 @@ export default function Methodology() {
         >
           <Button
             size="lg"
-            className="bg-light-blue hover:bg-blue-600 text-white px-8 py-4 text-lg font-semibold transition-all duration-200 hover:shadow-xl hover:scale-105"
+            className="bg-light-blue hover:bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all duration-200 hover:shadow-xl hover:scale-105 w-full max-w-xs sm:w-auto sm:max-w-none"
             onClick={() => setLocation("/contact")}
             data-testid="button-download-methodology"
           >
             <Download className="w-5 h-5 mr-2" />
-            Download Our Complete Methodology
+            Download Methodology
           </Button>
         </motion.div>
       </div>

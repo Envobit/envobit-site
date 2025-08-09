@@ -144,7 +144,7 @@ export default function Contact() {
             <h1 className="text-5xl lg:text-6xl font-medium text-gray-900 mb-6 font-montserrat tracking-tight">
               <span className="text-gray-300">Ready to</span>
               <br />
-              start your project?
+              <span className="text-light-blue">start</span> your project?
             </h1>
           </motion.div>
 
@@ -280,7 +280,7 @@ export default function Contact() {
                           {SERVICES.map((service) => (
                             <motion.div
                               key={service.value}
-                              whileTap={{ scale: 0.95 }}
+                              whileTap={{ scale: 0.8 }}
                             >
                               <ToggleGroupItem
                                 value={service.value}

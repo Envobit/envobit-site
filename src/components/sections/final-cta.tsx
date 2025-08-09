@@ -104,19 +104,6 @@ export default function FinalCTA() {
                 Apply for Partnership
               </Button>
             </motion.div>
-
-            <motion.div variants={buttonVariants}>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-2 border-light-blue text-light-blue hover:bg-light-blue hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-200"
-                onClick={() => setLocation("/contact")}
-                data-testid="button-free-audit"
-              >
-                <Gift className="w-5 h-5 mr-2" />
-                Get Free Product Strategy Audit
-              </Button>
-            </motion.div>
           </motion.div>
 
           {/* Secondary CTA */}
