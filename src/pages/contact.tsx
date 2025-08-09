@@ -3,17 +3,43 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Send, Phone, Mail, MessageSquare, Clock, CheckCircle } from "lucide-react";
+import {
+  Send,
+  Phone,
+  Mail,
+  MessageSquare,
+  Clock,
+  CheckCircle,
+} from "lucide-react";
 import Navigation from "@/components/ui/navigation";
 import Footer from "@/components/ui/footer";
 
@@ -52,7 +78,6 @@ const countryCodes = [
 ];
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
@@ -71,20 +96,19 @@ export default function Contact() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
     try {
       await addDoc(collection(db, "contacts"), {
         ...data,
-        submittedAt: new Date(),
-        status: "new"
+        submittedAt: serverTimestamp(),
+        status: "new",
       });
-      
+
       setIsSubmitted(true);
       toast({
         title: "Message sent successfully!",
         description: "We'll get back to you within 24 hours.",
       });
-      
+
       form.reset();
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -93,8 +117,6 @@ export default function Contact() {
         description: "Please try again or contact us directly.",
         variant: "destructive",
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -116,11 +138,11 @@ export default function Contact() {
                 Thank you for reaching out!
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                We've received your message and will get back to you within 24 hours. 
-                Our team is excited to learn more about your project.
+                We've received your message and will get back to you within 24
+                hours. Our team is excited to learn more about your project.
               </p>
-              <Button 
-                onClick={() => window.location.href = '/'}
+              <Button
+                onClick={() => (window.location.href = "/")}
                 className="bg-light-blue hover:bg-blue-600 text-white px-8 py-3"
                 data-testid="button-back-home"
               >
@@ -137,7 +159,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-gradient-to-br from-navy to-navy/90">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center text-white">
@@ -147,22 +169,24 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
             data-testid="contact-hero"
           >
-            <Badge 
-              variant="outline" 
+            <Badge
+              variant="outline"
               className="inline-flex items-center px-4 py-2 bg-light-blue/20 border-light-blue/30 text-light-blue text-sm font-medium mb-6"
               data-testid="badge-response-time"
             >
               <Clock className="w-4 h-4 mr-2" />
               24-hour response guarantee
             </Badge>
-            
+
             <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight font-montserrat">
-              Ready to start? <span className="text-light-blue">Let's chat!</span>
+              Ready to start?{" "}
+              <span className="text-light-blue">Let's chat!</span>
             </h1>
-            
+
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Want to reach out to us directly? We're here to turn your vision into reality. 
-              Share your project details and let's build something extraordinary together.
+              Want to reach out to us directly? We're here to turn your vision
+              into reality. Share your project details and let's build something
+              extraordinary together.
             </p>
           </motion.div>
         </div>
@@ -176,7 +200,10 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Card className="shadow-large border-0" data-testid="contact-form-card">
+            <Card
+              className="shadow-large border-0"
+              data-testid="contact-form-card"
+            >
               <CardHeader className="text-center pb-8">
                 <CardTitle className="text-3xl font-bold text-navy font-montserrat">
                   Tell us about your project
@@ -185,10 +212,13 @@ export default function Contact() {
                   The more details you share, the better we can help you succeed
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent>
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-6"
+                  >
                     {/* Personal Information */}
                     <div className="grid md:grid-cols-2 gap-6">
                       <FormField
@@ -196,10 +226,12 @@ export default function Contact() {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-navy font-semibold">Full Name *</FormLabel>
+                            <FormLabel className="text-navy font-semibold">
+                              Full Name *
+                            </FormLabel>
                             <FormControl>
-                              <Input 
-                                placeholder="John Doe" 
+                              <Input
+                                placeholder="John Doe"
                                 {...field}
                                 data-testid="input-name"
                                 className="border-gray-300 focus:border-light-blue"
@@ -209,17 +241,19 @@ export default function Contact() {
                           </FormItem>
                         )}
                       />
-                      
+
                       <FormField
                         control={form.control}
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-navy font-semibold">Email Address *</FormLabel>
+                            <FormLabel className="text-navy font-semibold">
+                              Email Address *
+                            </FormLabel>
                             <FormControl>
-                              <Input 
-                                type="email" 
-                                placeholder="john@company.com" 
+                              <Input
+                                type="email"
+                                placeholder="john@company.com"
                                 {...field}
                                 data-testid="input-email"
                                 className="border-gray-300 focus:border-light-blue"
@@ -238,8 +272,13 @@ export default function Contact() {
                         name="countryCode"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-navy font-semibold">Country *</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormLabel className="text-navy font-semibold">
+                              Country *
+                            </FormLabel>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
                               <FormControl>
                                 <SelectTrigger data-testid="select-country-code">
                                   <SelectValue placeholder="Code" />
@@ -247,7 +286,10 @@ export default function Contact() {
                               </FormControl>
                               <SelectContent>
                                 {countryCodes.map((country) => (
-                                  <SelectItem key={country.value} value={country.value}>
+                                  <SelectItem
+                                    key={country.value}
+                                    value={country.value}
+                                  >
                                     {country.label}
                                   </SelectItem>
                                 ))}
@@ -257,16 +299,18 @@ export default function Contact() {
                           </FormItem>
                         )}
                       />
-                      
+
                       <FormField
                         control={form.control}
                         name="phone"
                         render={({ field }) => (
                           <FormItem className="col-span-2">
-                            <FormLabel className="text-navy font-semibold">Phone Number *</FormLabel>
+                            <FormLabel className="text-navy font-semibold">
+                              Phone Number *
+                            </FormLabel>
                             <FormControl>
-                              <Input 
-                                placeholder="(555) 123-4567" 
+                              <Input
+                                placeholder="(555) 123-4567"
                                 {...field}
                                 data-testid="input-phone"
                                 className="border-gray-300 focus:border-light-blue"
@@ -285,10 +329,12 @@ export default function Contact() {
                         name="companyName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-navy font-semibold">Company Name</FormLabel>
+                            <FormLabel className="text-navy font-semibold">
+                              Company Name
+                            </FormLabel>
                             <FormControl>
-                              <Input 
-                                placeholder="Acme Corp" 
+                              <Input
+                                placeholder="Acme Corp"
                                 {...field}
                                 data-testid="input-company"
                                 className="border-gray-300 focus:border-light-blue"
@@ -298,16 +344,18 @@ export default function Contact() {
                           </FormItem>
                         )}
                       />
-                      
+
                       <FormField
                         control={form.control}
                         name="website"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-navy font-semibold">Website</FormLabel>
+                            <FormLabel className="text-navy font-semibold">
+                              Website
+                            </FormLabel>
                             <FormControl>
-                              <Input 
-                                placeholder="https://acme.com" 
+                              <Input
+                                placeholder="https://acme.com"
                                 {...field}
                                 data-testid="input-website"
                                 className="border-gray-300 focus:border-light-blue"
@@ -325,8 +373,13 @@ export default function Contact() {
                       name="budget"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-navy font-semibold">Project Budget *</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormLabel className="text-navy font-semibold">
+                            Project Budget *
+                          </FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
                             <FormControl>
                               <SelectTrigger data-testid="select-budget">
                                 <SelectValue placeholder="Select your budget range" />
@@ -334,7 +387,10 @@ export default function Contact() {
                             </FormControl>
                             <SelectContent>
                               {budgetOptions.map((budget) => (
-                                <SelectItem key={budget.value} value={budget.value}>
+                                <SelectItem
+                                  key={budget.value}
+                                  value={budget.value}
+                                >
                                   {budget.label}
                                 </SelectItem>
                               ))}
@@ -351,9 +407,11 @@ export default function Contact() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-navy font-semibold">Project Details *</FormLabel>
+                          <FormLabel className="text-navy font-semibold">
+                            Project Details *
+                          </FormLabel>
                           <FormControl>
-                            <Textarea 
+                            <Textarea
                               placeholder="Tell us about your project goals, timeline, and any specific requirements..."
                               className="min-h-[120px] border-gray-300 focus:border-light-blue resize-none"
                               {...field}
@@ -365,13 +423,13 @@ export default function Contact() {
                       )}
                     />
 
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting}
+                    <Button
+                      type="submit"
+                      disabled={form.formState.isSubmitting}
                       className="w-full bg-light-blue hover:bg-blue-600 text-white py-4 text-lg font-semibold transition-all duration-200 hover:shadow-lg"
                       data-testid="button-submit-contact"
                     >
-                      {isSubmitting ? (
+                      {form.formState.isSubmitting ? (
                         "Sending..."
                       ) : (
                         <>
@@ -406,7 +464,7 @@ export default function Contact() {
               <h3 className="text-xl font-bold text-navy mb-2">Email Us</h3>
               <p className="text-gray-600">hello@envobit.com</p>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -421,7 +479,7 @@ export default function Contact() {
               <h3 className="text-xl font-bold text-navy mb-2">Call Us</h3>
               <p className="text-gray-600">+1 (555) 123-4567</p>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
