@@ -1,0 +1,36 @@
+/* This is the class for the library's root element, now made borderless */
+.PhoneInput {
+  border: none !important;
+  background-color: transparent !important;
+  padding: 0 0.75rem; /* px-3 */
+  height: 100%;
+  width: 100%;
+}
+
+/* We don't need library focus styles; our wrapper handles it */
+.PhoneInput:focus-within {
+  box-shadow: none !important;
+}
+
+/* Target internal elements to ensure they are clean */
+.PhoneInputInput,
+.PhoneInputCountrySelect {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background-color: transparent !important;
+  height: 100%;
+}
+
+.PhoneInputInput {
+  flex: 1;
+  font-size: 0.875rem; /* 14px */
+}
+
+.PhoneInputCountry {
+  margin-right: 0.5rem;
+}
+
+.PhoneInputCountryIcon {
+  box-shadow: none !important;
+}
