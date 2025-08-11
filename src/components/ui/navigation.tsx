@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLocation, Link } from "wouter";
+import { setPendingScrollTarget } from "@/lib/scroll-target";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,17 +28,22 @@ export default function Navigation() {
 
   const handleNavClick = (href: string, isRoute?: boolean) => {
     if (isRoute) {
-      setLocation(href);
+      if (window.location.pathname === href) {
+        window.location.reload();
+      } else {
+        setLocation(href);
+      }
     } else {
-      // If we are already on the homepage, just scroll.
+      // if we are already on the homepage, just scroll
       if (window.location.pathname === "/") {
         const element = document.querySelector(href);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
       } else {
-        // Otherwise, navigate to the homepage with the hash.
-        setLocation(`/${href}`);
+        // otherwise, navigate to the homepage and defer scrolling without changing the url
+        setPendingScrollTarget(href);
+        setLocation("/");
       }
     }
     setIsMobileMenuOpen(false);
@@ -78,7 +84,7 @@ export default function Navigation() {
           <div className="hidden md:block">
             <Button
               className="bg-light-blue hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-medium"
-              onClick={() => setLocation("/contact")}
+              onClick={() => handleNavClick("/contact", true)}
               data-testid="button-book-strategy-call"
             >
               Book Strategy Call
@@ -118,7 +124,7 @@ export default function Navigation() {
               ))}
               <Button
                 className="bg-light-blue hover:bg-blue-600 text-white w-full mt-4"
-                onClick={() => setLocation("/contact")}
+                onClick={() => handleNavClick("/contact", true)}
                 data-testid="button-mobile-book-strategy-call"
               >
                 Book Strategy Call

@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "wouter";
+import { consumePendingScrollTarget } from "@/lib/scroll-target";
 import Navigation from "@/components/ui/navigation";
 import Hero from "@/components/sections/hero";
 import Problem from "@/components/sections/problem";
@@ -14,22 +15,32 @@ import Footer from "@/components/ui/footer";
 export default function Home() {
   const [location] = useLocation();
 
+  // handle scrolling to sections when navigating from another page
   useLayoutEffect(() => {
-    // Handle scrolling to sections when navigating from another page
-    const hash = window.location.hash;
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        // We use a timeout to ensure the page has had time to render
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+    // only use pendingScrollTarget from in-memory store
+    const target = consumePendingScrollTarget();
+    if (!target) {
+      // if no target but there's a hash, remove it without scrolling
+      if (window.location.hash) {
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname,
+        );
       }
+      return;
     }
+
+    const element = document.querySelector(target);
+    if (!element) return;
+
+    setTimeout(() => {
+      element.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   }, [location]);
 
+  // setup intersection observer for fade-in animations
   useEffect(() => {
-    // Set up intersection observer for fade-in animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px",
@@ -43,7 +54,7 @@ export default function Home() {
       });
     }, observerOptions);
 
-    // Observe all fade-in elements
+    // observe all fade-in elements
     const fadeElements = document.querySelectorAll(".fade-in-up");
     fadeElements.forEach((el) => observer.observe(el));
 
