@@ -32,6 +32,7 @@ import Footer from "@/components/ui/footer";
 import { Label } from "@/components/ui/label";
 import { BUDGET_OPTIONS, SERVICES } from "@/config/contact";
 import { useLocation } from "wouter";
+import { submitToGoogleForms } from "@/lib/google-forms";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -74,7 +75,18 @@ export default function Contact() {
       await addDoc(collection(db, "contacts"), {
         ...data,
         submittedAt: serverTimestamp(),
-        status: "new",
+      });
+
+      // fire-and-forget submit to google forms wr
+      void submitToGoogleForms({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        companyName: data.companyName,
+        website: data.website,
+        budget: data.budget,
+        services: data.services,
+        message: data.message,
       });
 
       setIsSubmitted(true);
